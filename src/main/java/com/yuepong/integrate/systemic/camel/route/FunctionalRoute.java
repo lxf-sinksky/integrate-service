@@ -25,7 +25,6 @@ public class FunctionalRoute extends RouteBuilder {
          * 新增黑名单
          */
         from("direct:putBlacklist").routeId("putBlacklist").routeDescription("新增黑名单")
-                .log("${headers.blackKey}")
                 .bean("BlacklistUtil", "putBlacklist");
         
         /**
@@ -33,7 +32,7 @@ public class FunctionalRoute extends RouteBuilder {
          */
         from("direct:getBlacklist").routeId("getBlacklist").routeDescription("查询黑名单")
                 .bean("BlacklistUtil", "getBlacklist")
-                .choice().when(simple("${body} == true"))
+                .choice().when(simple("${headers.blackValue} == true"))
                 .log("BlackKey: ${headers.blackKey} 在黑名单中，已中止路由")
                 .stop()
                 .otherwise()

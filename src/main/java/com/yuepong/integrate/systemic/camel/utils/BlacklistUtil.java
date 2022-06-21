@@ -2,6 +2,7 @@ package com.yuepong.integrate.systemic.camel.utils;
 
 import com.yuepong.integrate.systemic.service.BlacklistService;
 import com.yuepong.integrate.systemic.service.StaticBlacklistService;
+import org.apache.camel.Exchange;
 import org.apache.camel.Header;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -35,8 +36,8 @@ public class BlacklistUtil {
      * @param blackKey:  黑名单key
      * @return 是否存在于黑名单
      */
-    public static Boolean getBlacklist(@Header("namespace") String namespace, @Header("blackKey") String blackKey) {
-        return blacklistService.getBlacklist(namespace, blackKey);
+    public static void getBlacklist(@Header("namespace") String namespace, @Header("blackKey") String blackKey, Exchange exchange) {
+        exchange.getIn().setHeader("blackValue", blacklistService.getBlacklist(namespace, blackKey));
     }
     
 }
