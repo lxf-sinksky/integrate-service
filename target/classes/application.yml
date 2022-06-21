@@ -1,0 +1,59 @@
+server:
+  port: 9097
+  servlet:
+    context-path: /sync
+
+spring:
+  application:
+    name: integrate
+  profiles:
+    active: dev
+    include: resource
+  jmx:
+    enabled: true
+  jta:
+    transaction-manager-id: txManager
+    atomikos:
+      properties:
+        default-jta-timeout: 300000s
+        log-base-name: tmlog
+        log-base-dir: ./log/tx
+      connectionfactory:
+        max-idle-time: 300
+        borrow-connection-timeout: 120
+      datasource:
+        borrow-connection-timeout: 120
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+management:
+  endpoint:
+    camelroutes:
+      enabled: true
+
+
+camel:
+  springboot:
+    name: integrat
+    bean-introspection-logging-level: debug
+    routes-reload-enabled: true
+    message-history: true
+    source-location-enabled: true
+    main-run-controller: true
+
+# 集成属性配置
+integrate:
+  # 邮件
+  email:
+    # 第三方邮件SMTP服务，包含邮件地址，主机号，端口号，第三方发放的SMTP服务密钥
+    smtp:
+      address: yuepeng_sync@126.com
+      host: smtp.126.com
+      port: 25
+      secretkey: SGZIWUGGEKKTRLGA
+
+
+
+
+

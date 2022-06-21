@@ -1,0 +1,57 @@
+spring:
+  datasource:
+    master:
+      url: jdbc:mysql://localhost:3306/integrate?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      username: root
+      password: 636669
+      driverClassName: com.mysql.cj.jdbc.Driver
+      globalTransaction: true
+
+# 外部资源管理
+resource:
+  # 外部数据源管理(在此登记数据源连接信息后，还需要到com.yuepong.integrate.operation.config.ExternalDataSourceConfig配置类中注册Bean到Spring容器)
+  # globalTransaction为是否启用全局事务
+  datasource:
+    mysql8:
+      url: jdbc:mysql://localhost:3306/mytest?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      username: root
+      password: 636669
+      driverClassName: com.mysql.cj.jdbc.Driver
+      globalTransaction: true
+
+    mysql82:
+      url: jdbc:mysql://localhost:3306/mytest2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      username: root
+      password: 636669
+      driverClassName: com.mysql.cj.jdbc.Driver
+      globalTransaction: true
+
+    mysqlserver:
+      url: jdbc:sqlserver://localhost:1433;DatabaseName=test
+      username: lxf
+      password: 636669
+      driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      globalTransaction: true
+
+    oracle-test:
+      url: jdbc:oracle:thin:@192.168.13.147:1521:YXLTTEST
+      username: yxlttest
+      password: yxlttest
+      driverClassName: oracle.jdbc.driver.OracleDriver
+      globalTransaction: true
+
+# 集成属性配置
+integrate:
+  # 邮件
+  email:
+    # 异常通知服务
+    abnormalNoticeService:
+      # 发件人名称
+      sendersName: xx项目-集成服务异常通知
+      # 邮件主题
+      subject: 开发环境同步异常通知
+      # 收件人列表(多个收件人之间用逗号分隔)
+      recipients: 502979327@qq.com
+
+
+
