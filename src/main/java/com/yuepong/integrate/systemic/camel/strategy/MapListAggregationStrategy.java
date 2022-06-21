@@ -19,15 +19,20 @@ public class MapListAggregationStrategy implements AggregationStrategy {
     @Override
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         Map<String, Object> newBody = newExchange.getIn().getBody(HashMap.class);
+        Boolean blackValue = newExchange.getIn().getHeader("blackValue", Boolean.class);
         List<Map<String, Object>> bodyList = null;
         if (oldExchange == null) {
             bodyList = new ArrayList<Map<String, Object>>();
-            bodyList.add(newBody);
+            if (blackValue == null || !blackValue) {
+                bodyList.add(newBody);
+            }
             newExchange.getIn().setBody(bodyList);
             return newExchange;
         } else {
             bodyList = oldExchange.getIn().getBody(ArrayList.class);
-            bodyList.add(newBody);
+            if (blackValue == null || !blackValue) {
+                bodyList.add(newBody);
+            }
             return oldExchange;
         }
         

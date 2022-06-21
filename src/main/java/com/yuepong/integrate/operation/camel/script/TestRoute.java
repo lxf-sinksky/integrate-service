@@ -1,6 +1,7 @@
 package com.yuepong.integrate.operation.camel.script;
 
 
+import com.yuepong.integrate.systemic.camel.strategy.MapListAggregationStrategy;
 import com.yuepong.integrate.systemic.service.CamelService;
 import com.yuepong.integrate.systemic.service.DataSourceService;
 import com.yuepong.integrate.systemic.service.SimpleCacheService;
@@ -29,21 +30,16 @@ public class TestRoute extends RouteBuilder {
     public void configure() throws Exception {
         
         
-        /*from("timer:name?repeatCount=1")
-                .to("sql:select id,name from book;?dataSource=#mysql8&outputType=StreamList")
+        from("timer:name?repeatCount=1")
+                .setHeader("namespace", constant("book"))
+                .to("sql:select id,name from book;?dataSource=#mysql8&outputType=SelectList")
                 .split(body(), new MapListAggregationStrategy())
-                .bean("TypeConvertUtil", "toJson")
                 .log("${body}")
-                .filter(simple("${body.get(id)} != '1'"))
-                .bean("DataOperationUtil", "put(${body},'aaa','bbb')")
+                .setHeader("blackKey", simple("${body.get('id')}"))
+                .to("direct:getBlacklist")
                 .end()
-                .log("${body}")
-                .end()
-                .log("${body}");*/
+                .log("${body}");
         
-        from("cron:name?schedule=0/1 * * * * ?")
-                .delay(3000)
-                .log("aaa");
         
         /*from("quartz://groupName/timerName?cron=0/1 * * * * ?")
                 .delay(3000)
