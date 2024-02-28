@@ -15,7 +15,7 @@
     <description>integrate service</description>
     <properties>
         <java.version>11</java.version>
-        <camel.version>3.16.0</camel.version>
+        <camel.version>3.21.4</camel.version>
         <hikari.version>4.0.3</hikari.version>
         <dbcp.version>1.4</dbcp.version>
         <mysql-connector-version>8.0.29</mysql-connector-version>
